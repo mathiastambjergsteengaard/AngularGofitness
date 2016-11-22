@@ -1,0 +1,16 @@
+<p>
+  Please register
+</p>
+
+<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)">
+
+    <label>Name</label>
+    <input type="text" formControlName="name">
+
+    <label>Email</label>
+    <input type="text" formControlName="email">
+
+    <label>Password</label>
+    <input type="text" formControlName="password">
+
+    <button type="submit">Submit</button>
