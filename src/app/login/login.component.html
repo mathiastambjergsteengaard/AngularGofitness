@@ -1,3 +1,13 @@
 <p>
-  login works!
+  Login here!
 </p>
+
+<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)">
+
+    <label>Email</label>
+    <input type="text" formControlName="email">
+
+    <label>Password</label>
+    <input type="text" formControlName="password">
+
+    <button type="submit">Login</button>

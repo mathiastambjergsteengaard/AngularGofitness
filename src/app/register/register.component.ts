@@ -3,6 +3,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { User } from '../models/user';
 import { UserService } from '../user.service';
 
+import 'rxjs/add/operator/map'
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -24,7 +26,9 @@ export class RegisterComponent implements OnInit {
     }
 
     save(model: User, isValid: boolean) {
-        this.us.create(model).then(() => console.log("done"));
+        
+        this.us.create(model).subscribe(res => console.log(res));
+        console.log(this.us.token);
         // check if model is valid
         // if valid, call API to save customer
         console.log(model, isValid);

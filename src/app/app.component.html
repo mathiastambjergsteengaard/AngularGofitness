@@ -1,6 +1,12 @@
 <h1>{{title}}</h1>
+<p>{{login_message}}</p>
+<button (click)="logout()">Logout</button>
 <nav>
   <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
   <a routerLink="/programs" routerLinkActive="active">Create program</a>
+  <a routerLink="/register" routerLinkActive="active">Register</a>
+  <div *ngIf="logged_out">
+    <a routerLink="/login" routerLinkActive="active">Login</a>
+  </div>
 </nav>
 <router-outlet></router-outlet>

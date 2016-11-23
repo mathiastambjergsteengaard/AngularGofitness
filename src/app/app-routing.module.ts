@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { AddExerciseComponent } from './add-exercise/add-exercise.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/register', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'programs',  component: CreateProgramComponent },
   { path: 'register',  component: RegisterComponent },
