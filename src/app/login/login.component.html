@@ -1,13 +1,19 @@
-<p>
+<p  *ngIf="!logged_in">
   Login here!
 </p>
 
-<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)">
+<p *ngIf="logged_in">You are already logged in</p>
 
+<form [formGroup]="myForm" novalidate *ngIf="!logged_in" (ngSubmit)="login(myForm.value.email, myForm.value.password, myForm.valid)">
     <label>Email</label>
     <input type="text" formControlName="email">
-
+    <br>
+    <br>
     <label>Password</label>
     <input type="text" formControlName="password">
-
+    <br>
+    <p *ngIf="!isValid">Please fill all fields</p>
+    <br>
     <button type="submit">Login</button>
+
+

@@ -1,3 +1,38 @@
 <p>
-  add-exercise works!
+  Add Exercises!
 </p>
+
+    <label>Select program to add to</label>
+    <select [(ngModel)]="selectedProgram" (ngModelChange)="onChange($event)">
+     <option *ngFor="let program of programs" [ngValue]="program">{{program.name}}</option>
+    </select>
+
+<form [formGroup]="exerciseForm" novalidate (ngSubmit)="add(exerciseForm.value)">
+    
+    <br>
+    <br>    
+    <label>Name</label>
+    <input type="text" formControlName="name">
+    <br>
+    <br>
+    <label>description</label>
+    <input type="text" formControlName="description">
+    <br>
+    <br>
+    <label>set number</label>
+    <input type="number" formControlName="set_number">
+    <br>
+    <br>
+    <label>Duration minutes</label>
+    <input type="number" formControlName="duration_minutes">
+    <br>
+    <br>
+    <label>Duration seconds</label>
+    <input type="number" formControlName="duration_seconds">
+    <br>
+    <br>
+    <label>repetitions</label>
+    <input type="number" formControlName="repetitions">
+    <br>
+    <br>
+    <button type="submit">Add</button>

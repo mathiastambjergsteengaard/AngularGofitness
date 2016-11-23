@@ -1,3 +1,20 @@
 <p>
-  create-program works!
+  Create Program
 </p>
+
+<div>
+  <label>Program name:</label> <input #programName />
+  <button (click)="add(programName.value); programName.value=''">
+    Add
+  </button>
+</div>
+<ul class="heroes">
+  <li 
+    *ngFor="let program of programs">
+    {{program.name}}
+
+</li>
+</ul>
+
+
+

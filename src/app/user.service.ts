@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { User } from './models/user'
 import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map'
 
@@ -10,9 +12,14 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class UserService {
   public token: string;
+  isLoggedIn:boolean = false;
+  logIn: Subject<boolean> = new BehaviorSubject<boolean>(this.isLoggedIn);
+  externalBS;
   registerUrl = "https://fathomless-falls-39203.herokuapp.com/api/register"
   loginUrl = "https://fathomless-falls-39203.herokuapp.com/api/login"
   constructor(private http: Http) { 
+    this.logIn.asObservable();
+    this.externalBS = this.logIn;
     // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
@@ -27,10 +34,12 @@ export class UserService {
                 console.log(token);
                 if (token) {
                     // set token property
-                    this.token = token;
- 
+                    
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: user.email, token: token }));
+                    this.token = token;
+                    this.isLoggedIn = true;
+                    this.logIn.next(this.isLoggedIn);
  
                     // return true to indicate successful login
                     return true;
@@ -41,18 +50,20 @@ export class UserService {
             });
   }
 
-  login(username: String, password: String): Observable<boolean> {
-        return this.http.post(this.loginUrl, JSON.stringify({ username: username, password: password }))
+  login(email: String, password: String) {
+    console.log(email, password);
+        return this.http.post(this.loginUrl, JSON.stringify({ email: email, password: password }), {headers: this.headers})
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
                 if (token) {
                     // set token property
-                    this.token = token;
- 
+                    
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
- 
+                    localStorage.setItem('currentUser', JSON.stringify({ username: email, token: token }));
+                    this.token = token;
+                    this.isLoggedIn = true;
+                    this.logIn.next(this.isLoggedIn);
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -60,12 +71,20 @@ export class UserService {
                     return false;
                 }
             });
+
     }
 
     logout(): void {
         // clear token remove user from local storage to log user out
-        this.token = null;
+        
         localStorage.removeItem('currentUser');
+        this.token = null;
+        this.isLoggedIn = false;
+        this.logIn.next(this.isLoggedIn);
+    }
+
+    logged_in_obs(){
+      return this.logIn.asObservable().startWith(this.isLoggedIn);
     }
 
 

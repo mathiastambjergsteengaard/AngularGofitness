@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { UserService } from './user.service';
+import { ProgramService } from './program.service';
+import { ExerciseService } from './exercise.service';
 
 import { AppComponent } from './app.component';
 
@@ -32,7 +34,7 @@ import { LogComponent } from './log/log.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [UserService],
+  providers: [UserService, ProgramService, ExerciseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,12 +5,16 @@
 <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm.value, myForm.valid)">
 
     <label>Name</label>
-    <input type="text" formControlName="name">
-
+    <input type="text" formControlName="name" >
+    <br>
+    <br>
     <label>Email</label>
     <input type="text" formControlName="email">
-
+    <br>
+    <br>
     <label>Password</label>
     <input type="text" formControlName="password">
+    <br>
+    <p *ngIf="!isValid">Please fill all fields</p>
 
     <button type="submit">Submit</button>

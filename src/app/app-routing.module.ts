@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'programs',  component: CreateProgramComponent },
   { path: 'register',  component: RegisterComponent },
   { path: 'login',  component: LoginComponent },
-  { path: 'exercise',  component: AddExerciseComponent },
+  { path: 'exercises',  component: AddExerciseComponent },
 ];
 
 @NgModule({
