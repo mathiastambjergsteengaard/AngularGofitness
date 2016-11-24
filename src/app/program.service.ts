@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Program } from './models/program'
+import { FinishedProgram} from './models/finished-program'
 
 @Injectable()
 export class ProgramService {
@@ -8,6 +9,7 @@ export class ProgramService {
   constructor(private http: Http) { }
 
   programsUrl = "https://fathomless-falls-39203.herokuapp.com/api/programs";
+  finishedprogramsUrl = "https://fathomless-falls-39203.herokuapp.com/api/finished";
   
   create(name:string) : Promise<Program>{
     return this.http
@@ -17,13 +19,30 @@ export class ProgramService {
     .catch(this.handleError);
   }
 
-  getPrograms(){
+   getPrograms(){
     return this.http
       .get(this.programsUrl)
       .toPromise()
       .then(res => res.json() as Program[])
       .catch(this.handleError);
   }
+
+  createFinished(name:string, date:string) : Promise<FinishedProgram>{
+    return this.http
+    .post(this.finishedprogramsUrl, JSON.stringify({name: name, date:date}), {headers: this.headers})
+    .toPromise()
+    .then(res => res.json())
+    .catch(this.handleError);
+  }
+
+  getFinishedPrograms(){
+    return this.http
+      .get(this.finishedprogramsUrl)
+      .toPromise()
+      .then(res => res.json() as Program[])
+      .catch(this.handleError);
+  }
+ 
 
   
   private handleError(error: any): Promise<any> {

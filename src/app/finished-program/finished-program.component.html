@@ -1,0 +1,20 @@
+<p>Log finished program</p>
+<div>
+  <label>Program name:</label> <input #programName />
+  <br>
+  <br>
+  <label>Date:</label> <input #date />
+  <br>
+  <br>
+  <button (click)="addFinished(programName.value, date.value); programName.value=''; date.value=''">
+    Add
+  </button>
+</div>
+<ul class="heroes">
+  <li 
+    *ngFor="let program of programs">
+    <label>Name:</label> {{program.name}}
+    <label>Date:</label>{{program.date}}
+
+</li>
+</ul>

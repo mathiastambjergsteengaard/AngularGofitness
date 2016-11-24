@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AddExerciseComponent } from './add-exercise/add-exercise.component';
 import { LogComponent } from './log/log.component';
+import { FinishedProgramComponent } from './finished-program/finished-program.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LogComponent } from './log/log.component';
     RegisterComponent,
     LoginComponent,
     AddExerciseComponent,
-    LogComponent
+    LogComponent,
+    FinishedProgramComponent
   ],
   imports: [
     BrowserModule,
